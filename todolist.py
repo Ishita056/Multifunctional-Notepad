@@ -15,5 +15,10 @@ lbltitle.grid(row=0, column=0)
 lbldisplay = Label(root, text="", bg="white")
 lbldisplay.grid(row=0, column=1, columnspan=4)
 
+lbldsp_count = Label(root, text="", bg="white")
+lbldsp_count.grid(row=0, column=3)
 
-root.mainloop()
+txtinput =Entry(root, width=15)
+txtinput.grid(row=1, column=1)
+
+root.mainloop() 
