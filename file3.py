@@ -5,3 +5,4 @@ mac = int(input("Enter MAC: "))
 stability = ((xnp-xcp)/mac)*100
 
 print("Stability is ",stability)
+print("kc")
