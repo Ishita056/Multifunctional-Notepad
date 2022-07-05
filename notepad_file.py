@@ -12,6 +12,7 @@ class Notepad:
    root = Tk()
    TextArea = Text(root)
    MenuBar = Menu(root)
+   FileMenu = Menu(MenuBar, tearoff=0)
 
    # To add scrollbar
    ScrollBar = Scrollbar(TextArea)
@@ -44,11 +45,52 @@ class Notepad:
       
       # Add controls (widget)
       self.TextArea.grid(sticky = N + E + S + W)
+    # To open new file
+      self.FileMenu.add_command(label="New",
+   command=self.__newFile)
+      
+      # To open a already existing file
+      self.FileMenu.add_command(label="Open",
+   command=self.__openFile)
+      
+      # To create a line in the dialog
+      self.FileMenu.add_separator()
+      self.FileMenu.add_command(label="Exit",
+   command=self.__quitApplication)
+      self.MenuBar.add_cascade(label="File", menu=self.FileMenu)
+
+      self.root.config(menu=self.MenuBar)
+      self.ScrollBar.pack(side=RIGHT,fill=Y)
+      
+      # Scrollbar will adjust automatically according to the content
+      self.ScrollBar.config(command=self.TextArea.yview)
+      self.TextArea.config(yscrollcommand=self.ScrollBar.set)
+   def __quitApplication(self):
+      self.root.destroy()
+    
+   def __openFile(self):
+      self.__file = askopenfilename(defaultextension=".txt", filetypes=[("All Files","*.*"),("Text Documents","*.txt")])
+      if self.__file == "":
+         # no file to open
+         self.__file = None
+      else:
+         # Try to open the file
+         # set the window title
+         self.root.title(os.path.basename(self.__file) + " - Notepad")
+         self.TextArea.delete(1.0,END)
+         file = open(self.__file,"r")
+         self.TextArea.insert(1.0,file.read())
+         file.close()
+   def __newFile(self):
+      self.root.title("Untitled Notepad")
+      self.__file = None
+      self.TextArea.delete(1.0,END)
+       
       
    def run(self):
         # Run main application
         self.root.mainloop()
- 
+    
 # Run main application
 object_notepad = Notepad(600,400)
 object_notepad.run()
