@@ -33,11 +33,27 @@ def deleteone():
     updatetask()
 
 
+def deleteall():
+    conf = messagebox.askquestion(
+        'Delete all??', 'are you sure to delete all task?')
+    # print(conf)
+    if conf.upper() == "YES":
+        global tasks
+        tasks = []
+        updatetask()
+    else:
+        pass
+
+
+def numbertsk():
+    numtask = len(tasks)
+    lbldisplay["text"] = numtask
+
 # making window
 root = Tk()
 root.configure(bg="white")
 root.title("To-Do List")
-root.geometry("300x400")
+root.geometry("250x300")
 tasks = []
 
 lbltitle = Label(root, text="Todo List", bg="white")
@@ -61,6 +77,13 @@ delonebutton = Button(
     root, text="Done Task", bg="white", width=15, command=deleteone)
 delonebutton.grid(row=2, column=0)
 
+delallbutton = Button(
+    root, text="Delete all", bg="white", width=15, command=deleteall)
+delallbutton.grid(row=3, column=0)
+
+numbertsk = Button(
+    root, text="Number of Task", bg="white", width=15, command=numbertsk)
+numbertsk.grid(row=7, column=0)
 
 # display tasks
 lbltask = Listbox(root)
