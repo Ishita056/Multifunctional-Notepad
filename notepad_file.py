@@ -14,19 +14,20 @@ class Notepad:
    MenuBar = Menu(root)
    FileMenu = Menu(MenuBar, tearoff=0)
    EditMenu = Menu(MenuBar, tearoff=0)
+   Options = Menu(MenuBar, tearoff=0)
 
    # To add scrollbar
    ScrollBar = Scrollbar(TextArea)
    __file = None
 
-   def __init__(self,width,height): 
-    # icon
+   def __init__(self,width,height):
+   # icon
       try:
          self.root.wm_iconbitmap("Notepad.ico")
       except:
          pass
 
-    # Set window size as mentioned above (the default is 300x300)
+   # Set window size as mentioned above (the default is 300x300)
       self.Width = width
       self.Height = height
      
@@ -52,8 +53,7 @@ class Notepad:
       
       # Add controls (widget)
       self.TextArea.grid(sticky = N + E + S + W)
-    
-      # To open new file
+    # To open new file
       self.FileMenu.add_command(label="New",
    command=self.__newFile)
       
@@ -92,7 +92,11 @@ class Notepad:
       # Scrollbar will adjust automatically according to the content
       self.ScrollBar.config(command=self.TextArea.yview)
       self.TextArea.config(yscrollcommand=self.ScrollBar.set)
-   
+
+      self.Options.add_command(label="Main Menu",
+   command=self.mainmenu)
+      self.MenuBar.add_cascade(label="Options", menu=self.Options)
+
    def __quitApplication(self):
       self.root.destroy()
     
@@ -109,12 +113,12 @@ class Notepad:
          file = open(self.__file,"r")
          self.TextArea.insert(1.0,file.read())
          file.close()
-   
+         
    def __newFile(self):
       self.root.title("Untitled Notepad")
       self.__file = None
       self.TextArea.delete(1.0,END)
-   
+
    def __saveFile(self):
       if self.__file == None:
          # Save as new file
@@ -128,16 +132,20 @@ class Notepad:
          file.close()
          # Change the window title
          self.root.title(os.path.basename(self.__file) + " - Notepad") 
-   
+
    def __cut(self):
       self.TextArea.event_generate("<<Cut>>")
-   
+
    def __copy(self):
       self.TextArea.event_generate("<<Copy>>")
-   
+
    def __paste(self):
       self.TextArea.event_generate("<<Paste>>")
-      
+
+   def mainmenu(self):
+    self.root.destroy()
+    import buttons
+
    def run(self):
         # Run main application
         self.root.mainloop()
