@@ -1,10 +1,6 @@
-#Import os library
 import os
-#import everything from tkinter
 from tkinter import *
-#To get the space above the message
 from tkinter.messagebox import *
-#To get the dialog box to open when required
 from tkinter.filedialog import *
 
 class Notepad:
@@ -27,11 +23,9 @@ class Notepad:
       except:
          pass
 
-   # Set window size as mentioned above (the default is 300x300)
       self.Width = width
       self.Height = height
      
-      # the window text
       self.root.title("Untitled-Notepad")
       
       # Center the window
