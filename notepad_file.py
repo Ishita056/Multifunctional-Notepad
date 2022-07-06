@@ -68,6 +68,14 @@ class Notepad:
       self.EditMenu.add_command(label="Cut",
    command=self.__cut)
       
+      # to give a feature of copy
+      self.EditMenu.add_command(label="Copy",
+   command=self.__copy)
+      
+      # To give a feature of paste
+      self.EditMenu.add_command(label="Paste",
+   command=self.__paste)
+      
       # To give a feature of editing
       self.MenuBar.add_cascade(label="Edit", menu=self.EditMenu)
 
@@ -112,6 +120,10 @@ class Notepad:
          self.root.title(os.path.basename(self.__file) + " - Notepad") 
    def __cut(self):
       self.TextArea.event_generate("<<Cut>>")
+   def __copy(self):
+      self.TextArea.event_generate("<<Copy>>")
+   def __paste(self):
+      self.TextArea.event_generate("<<Paste>>")
       
    def run(self):
         # Run main application
