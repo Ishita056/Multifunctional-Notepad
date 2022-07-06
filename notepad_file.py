@@ -13,6 +13,7 @@ class Notepad:
    TextArea = Text(root)
    MenuBar = Menu(root)
    FileMenu = Menu(MenuBar, tearoff=0)
+   EditMenu = Menu(MenuBar, tearoff=0)
 
    # To add scrollbar
    ScrollBar = Scrollbar(TextArea)
@@ -63,6 +64,13 @@ class Notepad:
    command=self.__quitApplication)
       self.MenuBar.add_cascade(label="File", menu=self.FileMenu)
 
+       # To give a feature of cut
+      self.EditMenu.add_command(label="Cut",
+   command=self.__cut)
+      
+      # To give a feature of editing
+      self.MenuBar.add_cascade(label="Edit", menu=self.EditMenu)
+
       self.root.config(menu=self.MenuBar)
       self.ScrollBar.pack(side=RIGHT,fill=Y)
       
@@ -102,6 +110,8 @@ class Notepad:
          file.close()
          # Change the window title
          self.root.title(os.path.basename(self.__file) + " - Notepad") 
+   def __cut(self):
+      self.TextArea.event_generate("<<Cut>>")
       
    def run(self):
         # Run main application
