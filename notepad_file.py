@@ -10,7 +10,6 @@ class Notepad:
    MenuBar = Menu(root)
    FileMenu = Menu(MenuBar, tearoff=0)
    EditMenu = Menu(MenuBar, tearoff=0)
-   Options = Menu(MenuBar, tearoff=0)
 
    # To add scrollbar
    ScrollBar = Scrollbar(TextArea)
@@ -87,9 +86,8 @@ class Notepad:
       self.ScrollBar.config(command=self.TextArea.yview)
       self.TextArea.config(yscrollcommand=self.ScrollBar.set)
 
-      self.Options.add_command(label="Main Menu",
-   command=self.mainmenu)
-      self.MenuBar.add_cascade(label="Options", menu=self.Options)
+      # for option to mainmenu
+      self.MenuBar.add_command(label="Main Menu", command=self.mainmenu)
 
    def __quitApplication(self):
       self.root.destroy()
@@ -138,7 +136,7 @@ class Notepad:
 
    def mainmenu(self):
     self.root.destroy()
-    import buttons
+    import main
 
    def run(self):
         # Run main application
